@@ -1,0 +1,42 @@
+---
+title: "CBB"
+author: "Pankaj Sharma"
+date: "12/25/2019"
+output: html_document
+---
+
+```{r load-libraries, include = FALSE}
+library(tidyverse)
+library(caret)
+library(ggplot2)
+```
+
+```{r load-data, echo = FALSE, message = FALSE}
+cbb = read.csv("D:/Data Science/Practice/cbb.csv")
+```
+
+# EDA
+
+```{r, echo = FALSE}
+cbb['win_ratio'] = cbb$W/cbb$G
+```
+
+```{r, echo = FALSE}
+cbb %>% filter(YEAR == 2019) %>% 
+  ggplot(aes(win_ratio)) +
+  geom_histogram(breaks = seq(0.0, 1.0, by = 0.10),
+                 col = "dodgerblue4",
+                 fill = "blue",
+                 alpha = 0.2) +
+  labs(title = "Distribution of Win %", x = "Win Ratio", y = "# Teams") +
+  xlim(c(0,1))+
+  ylim(c(0,90)) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+    axis.line = element_line(colour = "black"),
+    plot.title = element_text(hjust = 0.5)
+  )
+```
+
